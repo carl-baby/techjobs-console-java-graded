@@ -78,6 +78,8 @@ public class JobData {
         for (HashMap<String, String> row : allJobs) {
 
             String aValue = row.get(column);
+            aValue = aValue.toLowerCase();
+            value = value.toLowerCase();
 
             if (aValue.contains(value)) {
                 jobs.add(row);
@@ -97,15 +99,23 @@ public class JobData {
 
         // load data, if not already loaded
         loadData();
+        ArrayList<HashMap<String, String>> jobReturn = new ArrayList<>();
 
         // TODO - implement this method
-        return null;
-    }
+        for (HashMap<String, String> job : allJobs) {
+            String jobPair = job.entrySet().toString().toLowerCase();
+            String lowercaseValue = value.toLowerCase();
+            if (jobPair.contains(lowercaseValue)) {
+                jobReturn.add(job);
+            }
+        }  return jobReturn;
+    };
+
 
     /**
      * Read in data from a CSV file and store it in a list
      */
-    private static void loadData() {
+    private static void loadData () {
 
         // Only load data once
         if (isDataLoaded) {
@@ -142,5 +152,4 @@ public class JobData {
             e.printStackTrace();
         }
     }
-
 }
